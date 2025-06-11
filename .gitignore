@@ -10,3 +10,4 @@ config
 *var*
 *json
 *.yaml
+*.parquet
