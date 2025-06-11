@@ -23,7 +23,7 @@ args = {
 dag = DAG(
     dag_id='weatherbits_dag',
     default_args=args,
-    schedule_interval='*/10 * * * *',
+    schedule_interval='0 5 * * *',
     catchup=False
 )
 
