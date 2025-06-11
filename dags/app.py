@@ -63,7 +63,6 @@ def boto_session():
         aws_access_key_id=Variable.get("AIRFLOW_AWS_KEY_ID"),
         aws_secret_access_key=Variable.get("AIRFLOW_AWS_SECRET_KEY"),
         region_name="eu-west-1"
-        # aws_account_id=Variable.get("AWS_ACCOUNT_ID")
     )
     return session
 
@@ -76,11 +75,10 @@ def to_s3():
     my_path = "s3://tao-weatherbits-ingestion/airflow_dump/"
     data = pd.read_csv(airflow_temp_storage+'/weatherbits.csv')
     data = pd.DataFrame(data)
-    wr.s3.to_csv(
+    wr.s3.to_parquet(
         df=data,
-        path=f"{my_path}/weatherbits-{time.strftime("%Y-%m-%d")}.csv",
+        path=f"{my_path}weatherbits-{time.strftime("%Y-%m-%d")}.parquet",
         boto3_session=boto_session(),
-        mode="append",
-        dataset=True,
+        dataset=False
     )
     print("upload complete!")
