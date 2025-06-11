@@ -9,3 +9,4 @@ config
 *csv
 *var*
 *json
+*.yaml
