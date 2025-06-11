@@ -24,7 +24,9 @@ resource "aws_iam_policy" "airflow_policy_tao" {
         Effect = "Allow",
         Action = [
           "s3:ListBucket",
-          "s3:PutObject"
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:HeadObject"
         ],
         Resource = ["arn:aws:s3:::tao-weatherbits-ingestion/*"]
       }
@@ -37,3 +39,7 @@ resource "aws_iam_user_policy_attachment" "airflow" {
   policy_arn = aws_iam_policy.airflow_policy_tao.arn
 }
 
+
+resource "aws_iam_access_key" "airflow_tao" {
+  user = aws_iam_user.airflow_tao.name
+}
