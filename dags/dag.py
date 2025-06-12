@@ -9,7 +9,7 @@ key = Variable.get("WEATHERBITS_API_SECRET_KEY")
 lat = 9.896527  # Jos N & E source: maps of world
 long = 8.858331
 url = f"{base_url}?lat={lat}&lon={long}&key={key}"
-airflow_temp_storage = '/opt/airflow/tmp'
+airflow_temp_storage = '/opt/airflow/tmp/'
 
 
 args = {
