@@ -14,7 +14,7 @@ key = Variable.get("WEATHERBITS_API_SECRET_KEY")
 lat = 9.896527  # Jos N & E source: maps of world
 long = 8.858331
 url = f"{base_url}?lat={lat}&lon={long}&key={key}"
-airflow_temp_storage = '/opt/airflow/tmp'
+airflow_temp_storage = '/opt/airflow/tmp/'
 
 
 # conn = Connection(
@@ -33,17 +33,17 @@ def extract(endpoint):
     if r.status_code == 200:
         r = r.json()
     os.makedirs(airflow_temp_storage, exist_ok=True)
-    with open(airflow_temp_storage+'/weatherbits.json', 'w') as r_json:
+    with open(airflow_temp_storage+'weatherbits.json', 'w') as r_json:
         json.dump(r, r_json)
     print("json file saved to path successfully!")
 
 
 def transform():
-    with open(airflow_temp_storage+'/weatherbits.json') as file:
+    with open(airflow_temp_storage+'weatherbits.json') as file:
         r_json = json.load(file)
     response_list = r_json['data']
     weatherbits_df = pd.DataFrame(data=response_list)
-    weatherbits_df.to_csv(airflow_temp_storage+'/weatherbits.csv')
+    weatherbits_df.to_csv(airflow_temp_storage+'weatherbits.csv')
     print("file transformation complete!")
 
 
@@ -69,11 +69,11 @@ def boto_session():
 
 def to_s3():
     """
-    Function to write DataFrame to S3 in parquet and csv formats.
-    :return: completion messsage
+    Function to write DataFrame to S3 in parquet format.
+    :return: completion messsage when upload is completed successfully
     """
     my_path = "s3://tao-weatherbits-ingestion/airflow_dump/"
-    data = pd.read_csv(airflow_temp_storage+'/weatherbits.csv')
+    data = pd.read_csv(airflow_temp_storage+'weatherbits.csv')
     data = pd.DataFrame(data)
     wr.s3.to_parquet(
         df=data,
