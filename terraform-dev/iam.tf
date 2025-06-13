@@ -25,10 +25,9 @@ resource "aws_iam_policy" "airflow_policy_tao" {
         Action = [
           "s3:ListBucket",
           "s3:PutObject",
-          "s3:GetObject",
           "s3:HeadObject"
         ],
-        Resource = ["arn:aws:s3:::tao-weatherbits-ingestion/*"]
+        Resource = ["arn:aws:s3:::tao-general-ingestion/*"]
       }
     ]
   })
