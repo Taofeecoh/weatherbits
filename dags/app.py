@@ -86,7 +86,7 @@ def to_s3():
     data = pd.DataFrame(data)
     wr.s3.to_parquet(
         df=data,
-        path=f"{my_path}weatherbits-{time.strftime("%Y-%m-%d")}.parquet",
+        path=f"{my_path}weatherbits-{time.strftime("%Y-%m-%d-%H%M%S")}.parquet",
         boto3_session=boto_session(),
         dataset=False
     )
