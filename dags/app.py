@@ -29,6 +29,11 @@ airflow_temp_storage = '/opt/airflow/tmp/'
 
 
 def extract(endpoint):
+    """
+    Function to extract data from an endpoint and store json format of data temporarily.
+    :params endpoint: endpoint url to connect to
+    :returns: completion message
+    """
     r = requests.get(endpoint)
     if r.status_code == 200:
         r = r.json()
@@ -39,6 +44,10 @@ def extract(endpoint):
 
 
 def transform():
+    """
+    Function to transform json file to dataframe
+    :returns: prints completion message 
+    """
     with open(airflow_temp_storage+'weatherbits.json') as file:
         r_json = json.load(file)
     response_list = r_json['data']
