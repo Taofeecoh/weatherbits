@@ -81,7 +81,7 @@ def to_s3():
     Function to write DataFrame to S3 in parquet format.
     :return: completion messsage when upload is completed successfully
     """
-    my_path = "s3://tao-weatherbits-ingestion/airflow_dump/"
+    my_path = "s3://tao-general-ingestion/airflow-weatherbits-dump/"
     data = pd.read_csv(airflow_temp_storage+'weatherbits.csv')
     data = pd.DataFrame(data)
     wr.s3.to_parquet(
