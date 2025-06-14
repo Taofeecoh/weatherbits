@@ -1,16 +1,16 @@
-resource "aws_s3_bucket" "weatherbits" {
-  bucket        = "tao-weatherbits-ingestion"
+resource "aws_s3_bucket" "general" {
+  bucket        = "tao-general-ingestion"
   force_destroy = true
 
   tags = {
-    Name        = "tao-weatherbits-ingestion"
+    Name        = "tao-general-ingestion"
     Environment = "Dev"
     Accessed_by = "Airflow"
   }
 }
 
-resource "aws_s3_bucket_versioning" "versioning_weatherbits" {
-  bucket = aws_s3_bucket.weatherbits.id
+resource "aws_s3_bucket_versioning" "versioning_general" {
+  bucket = aws_s3_bucket.general.id
   versioning_configuration {
     status = "Enabled"
   }
