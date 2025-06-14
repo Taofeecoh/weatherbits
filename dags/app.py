@@ -9,38 +9,40 @@ import requests
 from airflow.hooks.S3_hook import S3Hook
 from airflow.models import Variable
 
-base_url = "https://api.weatherbit.io/v2.0/forecast/agweather"
-key = Variable.get("WEATHERBITS_API_SECRET_KEY")
-lat = 9.896527  # Jos N & E source: maps of world
-long = 8.858331
-url = f"{base_url}?lat={lat}&lon={long}&key={key}"
+# base_url = "https://api.weatherbit.io/v2.0/forecast/agweather"
+# key = Variable.get("WEATHERBITS_API_SECRET_KEY")
+# lat = 9.896527  # Jos N & E source: maps of world
+# long = 8.858331
+# url = f"{base_url}?lat={lat}&lon={long}&key={key}"
 airflow_temp_storage = '/opt/airflow/tmp/'
 
 
-# conn = Connection(
-#     conn_id="aws_weatherbitsToS3",
-#     conn_type="aws",
-#     login=Variable.get("AIRFLOW_AWS_KEY_ID"),
-#     password=Variable.get("AIRFLOW_AWS_SECRET_KEY"),
-#     extra={
-#         "region_name": "eu-west-1",
-#     }
-# )
-
-
-def extract(endpoint):
+def extract():
     """
-    Function to extract data from an endpoint and store json format of data temporarily.
-    :params endpoint: endpoint url to connect to
-    :returns: completion message
+    Function to extract data from an endpoint and store json format data.
+    :returns: texts to show status of extraction
     """
-    r = requests.get(endpoint)
-    if r.status_code == 200:
-        r = r.json()
-    os.makedirs(airflow_temp_storage, exist_ok=True)
-    with open(airflow_temp_storage+'weatherbits.json', 'w') as r_json:
-        json.dump(r, r_json)
-    print("json file saved to path successfully!")
+
+    base_url = 'https://api.weatherbit.io/v2.0/forecast/agweather'
+    params = {
+    'lat': '9.896527',  # Jos N source: maps of world
+    'lon': '8.858331', # Jos E
+    'key': Variable.get("WEATHERBITS_API_SECRET_KEY")
+        }
+
+    try:
+        r = requests.get(base_url, params=params)
+        if r.status_code == 200:
+            r = r.json()
+            os.makedirs(airflow_temp_storage, exist_ok=True)
+            with open(airflow_temp_storage+'weatherbits.json', 'w') as r_json:
+                json.dump(r, r_json)
+            print("json file saved to path successfully!")
+        else:
+            print("Error!!!", r.text)
+    except ConnectionError as e:
+        print("Connection error:", e)
+
 
 
 def transform():
@@ -86,7 +88,7 @@ def to_s3():
     data = pd.DataFrame(data)
     wr.s3.to_parquet(
         df=data,
-        path=f"{my_path}weatherbits-{time.strftime("%Y-%m-%d-%H%M%S")}.parquet",
+        path=f"{my_path}weatherbits-{time.strftime("%Y-%m-%d|%H:%M:%S")}.parquet",
         boto3_session=boto_session(),
         dataset=False
     )
