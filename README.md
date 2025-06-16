@@ -1,9 +1,10 @@
 ![alt text](images/image-1.jpg)
 
-# Agricultural Weather Data Pipeline for Jos, Nigeria
+# 🌾 Agricultural Weather Data (specific to Jos, Nigeria) Pipeline (Weatherbit API → AWS S3) 
+## 📌 Overview
+This project implements an automated data pipeline that retrieves daily agricultural weather forecasts from the Weatherbit API and stores the data in Amazon S3 for downstream analytics and reporting. It is designed with automation, security, and scalability in mind — leveraging Apache Airflow for orchestration and Terraform for infrastructure provisioning.
 
-## Overview
-Brief intro to what this project does.
+The pipeline enables the organization to make timely, data-driven agricultural decisions by ensuring fresh, accessible, and well-structured weather data is always available in the data lake.
 
 ## Business Problem
 The company relies on weather data to support agriculture-related analytics and decision-making. However, this data is only available through a third-party API (Weatherbit), and manual retrieval is inefficient, error-prone, and not scalable for daily ingestion.
@@ -24,9 +25,18 @@ The solution is built with the following components:
 
 This setup enables scalable, secure, and hands-free access to weather data for downstream teams such as data analysts and agronomists.
 
+## 🌍 Data Source: Weatherbit Ag-Weather Forecast API
+Key highlights:
+- Provides **8-day forecasts** for any geographic coordinate (latitude and longitude) in the world.
+- Includes **30+ agricultural weather fields**, such as:
+  - Soil temperature
+  - Precipitation
+  - Soil moisture
+  - Evapotranspiration
+  - Solar radiation
+  - And more!
 
 ## Architecture Diagram
-Illustrate:
 API → Extract → Transform → Load (S3)
 
 Terraform: IAM, S3, SSM
