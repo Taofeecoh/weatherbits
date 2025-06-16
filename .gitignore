@@ -1,5 +1,5 @@
 *env
-terraform-dev/*terraform*
+*terraform*
 *cache*
 logs
 plugins
