@@ -37,11 +37,7 @@ Key highlights:
   - And more!
 
 ## Architecture Diagram
-API → Extract → Transform → Load (S3)
-
-Terraform: IAM, S3, SSM
-
-Airflow: Daily Orchestration
+![alt text](images/image-3.PNG)
 
 ## Features
 - Secure and automated weather data ingestion
