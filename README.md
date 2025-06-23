@@ -1,4 +1,4 @@
-![alt text](images/image-1.jpg)
+![alt text](assets/image-1.jpg)
 
 # 🌾 Agricultural Weather Data (specific to Jos, Nigeria) Pipeline (Weatherbit API → AWS S3) 
 ## 📌 Overview
@@ -37,7 +37,7 @@ Key highlights:
   - And more!
 
 ## Architecture Diagram
-![alt text](images/image-3.PNG)
+<!-- ![alt text](assets/image-3.png) -->
 
 ## Features
 - Secure and automated weather data ingestion
