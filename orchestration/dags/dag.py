@@ -3,15 +3,9 @@ from datetime import datetime, timedelta
 from airflow.models import DAG, Variable
 from airflow.operators.python_operator import PythonOperator
 import airflow_variable
-from app import extract, to_s3, transform
+from utils.app import extract, to_s3, transform
 
 
-# base_url = "https://api.weatherbit.io/v2.0/forecast/agweather"
-# key = Variable.get("WEATHERBITS_API_SECRET_KEY")
-# lat = 9.896527  # Jos N & E source: maps of world
-# long = 8.858331
-# url = f"{base_url}?lat={lat}&lon={long}&key={key}"
-# airflow_temp_storage = '/opt/airflow/tmp/'
 
 airflow_vars = airflow_variable
 
@@ -34,7 +28,6 @@ with DAG(
         task_id='extract_data',
         provide_context=True,
         python_callable=extract,
-        #op_kwargs={"endpoint": url},
         dag=dag,
     )
 
