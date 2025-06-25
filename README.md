@@ -37,7 +37,7 @@ Key highlights:
   - And more!
 
 ## Architecture Diagram
-<!-- ![alt text](assets/image-3.png) -->
+![alt text](assets/weather_infra.png)
 
 ## Features
 - Secure and automated weather data ingestion
