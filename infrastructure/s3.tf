@@ -1,9 +1,9 @@
 resource "aws_s3_bucket" "general" {
-  bucket        = "tao-general-ingestion"
+  bucket        = "tao-general-ingestion2"
   force_destroy = true
 
   tags = {
-    Name        = "tao-general-ingestion"
+    Name        = "tao-general-ingestion2"
     Environment = "Dev"
     Accessed_by = "Airflow"
   }
