@@ -8,6 +8,7 @@ from utils.app import api_to_storage
 
 
 airflow_vars = airflow_variable
+
 my_path = "s3://tao-general-ingestion2/airflow-weatherbits-dump/"
 file_path = "{}weatherbits-{}.parquet".format(my_path, time.strftime("%Y-%m-%d|%H:%M:%S"))
 base_url = 'https://api.weatherbit.io/v2.0/forecast/agweather' 
