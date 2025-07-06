@@ -41,17 +41,18 @@ def boto_session():
     return session
 
 
-def api_to_storage(**kwargs):
+def api_to_storage(url, querystrings, s3_key):
     """
     Function to extract data from an endpoint and store json format data.
-    :returns: texts to show status of extraction
+    :params url: base url of request
+    :params querystrings: url endpoints
+    :params file_path: path/to/filename in s3 bucket
     """
     try:
-        r = requests.get(base_url, params=params)
-        if r.status_code == 200:
-            r = r.json()
-            response_list = r['data']
-            data = pd.DataFrame(response_list)
+        response = requests.get(base_url, params=params)
+        if response.status_code == 200:
+            response = response.json()
+            data = pd.json_normalize(response)
             wr.s3.to_parquet(
                 df=data,
                 path=file_path,
@@ -60,7 +61,7 @@ def api_to_storage(**kwargs):
             )
             logging.info("upload complete!")
         else:
-            logging.info("Error!!!", r.text)
+            logging.info("Error!!!", response.text)
     except Exception as e:
         logging.info("Connection error:", e)
 
