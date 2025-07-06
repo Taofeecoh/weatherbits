@@ -2,7 +2,7 @@ terraform {
   backend "s3" {
     bucket       = "tao-weatherbits-terraform"
     key          = "dev/terraform.tfstate"
-    region       = "us-east-2"
+    region       = "eu-west-1"
     use_lockfile = true
 
   }
