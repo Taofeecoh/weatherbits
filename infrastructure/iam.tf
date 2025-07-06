@@ -1,13 +1,10 @@
 resource "aws_iam_user" "airflow_tao" {
   name = "Airflow-Tao"
 
-  tags = {
-    Group = "Airflow"
-  }
 }
 
-resource "aws_iam_policy" "airflow_policy_tao" {
-  name        = "airflow-policy-tao"
+resource "aws_iam_policy" "airflow_policy_tao2" {
+  name        = "airflow-policy-tao2"
   description = "Policy desciption for user: Airflow-Tao"
 
   policy = jsonencode({
@@ -27,7 +24,7 @@ resource "aws_iam_policy" "airflow_policy_tao" {
           "s3:PutObject",
           "s3:HeadObject"
         ],
-        Resource = ["arn:aws:s3:::tao-general-ingestion/*"]
+        Resource = ["arn:aws:s3:::tao-general-ingestion2/*"]
       }
     ]
   })
@@ -35,7 +32,7 @@ resource "aws_iam_policy" "airflow_policy_tao" {
 
 resource "aws_iam_user_policy_attachment" "airflow" {
   user       = aws_iam_user.airflow_tao.name
-  policy_arn = aws_iam_policy.airflow_policy_tao.arn
+  policy_arn = aws_iam_policy.airflow_policy_tao2.arn
 }
 
 
