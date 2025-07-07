@@ -11,6 +11,7 @@ airflow_vars = airflow_variable
 
 my_path = "s3://tao-general-ingestion2/airflow-weatherbits-dump/"
 file_path = "{}weatherbits-{}.parquet".format(my_path, time.strftime("%Y-%m-%d|%H:%M:%S"))
+
 base_url = 'https://api.weatherbit.io/v2.0/forecast/agweather' 
 params = {
     'lat': '9.896527',  # Jos N source: maps of world
@@ -35,7 +36,7 @@ with DAG(
 ) as dag:
 
     extract_to_s3 = PythonOperator(
-        task_id='extract',
+        task_id='extract_load',
         provide_context=True,
         python_callable=api_to_storage,
         op_args=[base_url, params, file_path],
