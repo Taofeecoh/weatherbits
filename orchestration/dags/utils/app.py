@@ -6,7 +6,6 @@ import pandas as pd
 import requests
 from airflow.models import Variable
 
-
 # Create logger object
 logging.basicConfig(
     filename="logfile.log",
