@@ -1,4 +1,3 @@
-import time
 import logging
 
 import awswrangler as wr
@@ -30,7 +29,12 @@ def boto_session():
     return session
 
 
-def api_to_storage(url, querystrings, s3_key):
+def api_to_storage(
+        url: str,
+        querystrings: dict,
+        s3_key: str,
+        headers: dict | None = None
+        ):
     """
     Function to extract data from an endpoint and store json format data.
     :params url: base url of request
@@ -38,7 +42,7 @@ def api_to_storage(url, querystrings, s3_key):
     :params s3_key: path/to/filename in s3 bucket
     """
     try:
-        response = requests.get(url, params=querystrings)
+        response = requests.get(url, params=querystrings, headers=headers)
         if response.status_code == 200:
             response = response.json()
             data = pd.json_normalize(response)
